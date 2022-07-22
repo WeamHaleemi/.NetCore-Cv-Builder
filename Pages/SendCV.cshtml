@@ -1,0 +1,109 @@
+﻿@page "{handler?}"
+@model Pages.SendCV
+@{
+    ViewData["Title"] = "Send CV";
+}
+<h1>@ViewData["Title"]</h1>
+<div asp-validation-summary="All" class="">
+<form asp-page-handler="OnPost" enctype="multipart/form-data">
+    <div class="form-group row mt-2">
+    <label asp-for="userModel.FirstName"></label>
+    <span asp-validation-for="userModel.FirstName" class="text-danger mb-3 "></span>
+    <input asp-for="userModel.FirstName" class="form-control" />
+    </div>
+
+    <div class="form-group row mt-2">
+    <label asp-for="userModel.LastName"></label>
+    <span asp-validation-for="userModel.LastName" class="text-danger mb-3 "></span>
+    <input asp-for="userModel.LastName" class="form-control" />
+    </div>
+
+    <div class="form-group row mt-2">
+    <label asp-for="userModel.Email"></label>
+    <span asp-validation-for="userModel.Email" class="text-danger mb-3 "></span>
+    <input asp-for="userModel.Email" class="form-control" />
+    </div>
+
+    <div class="form-group row mt-2">
+    <label asp-for="userModel.ConfirmEmail"></label>
+    <span asp-validation-for="userModel.ConfirmEmail" class="text-danger mb-3 "></span>
+    <input asp-for="userModel.ConfirmEmail" class="form-control" />
+    </div>
+
+    <div class="form-group row mt-2">
+    <label asp-for="userModel.BirthDate"></label>
+    <span asp-validation-for="userModel.BirthDate" class="text-danger mb-3 "></span>
+    <input asp-for="userModel.BirthDate" class="form-control" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+    </div>
+
+    <div class="form-group row mt-2">
+    <label asp-for="userModel.Gender"></label>
+    <span asp-validation-for="userModel.Gender" class="text-danger mb-3 "></span>
+    @{
+        foreach (var gender in Model.genderList)
+        {
+            <div class="form-check">
+                <input type="radio" asp-for="userModel.Gender" value="@gender" />
+                @gender
+            </div>
+
+        }
+    }
+    </div>
+
+    <div class="form-group row mt-2">
+    <label asp-for="userModel.Nationality"></label>
+    <span asp-validation-for="userModel.Nationality" class="text-danger mb-3 "></span>
+    <select asp-for="userModel.Nationality" asp-items="Model.Items">
+        <option value="">Select Nationality</option>
+    </select>
+    </div>
+
+    <div class="form-group row mt-2">
+        <span asp-validation-for="userModel.Skills" class="text-danger mb-3"></span>
+        <label asp-for="userModel.Skills"></label>
+        @{
+            foreach (var skill in Model.Skills)
+            {
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                    <input type="checkbox" name="userModel.Skills" value="@skill.SkillId" />&nbsp;@skill.SkillName
+                </div>
+            }
+        }
+    </div>
+    <div class="mt-2">
+        <label asp-for="userModel.Image"></label>
+        <span asp-validation-for="userModel.Nationality" class="text-danger mb-3 "></span>
+        <input asp-for="userModel.Image" class="custom-file-input form-control"/>
+    </div>
+    <div class="mt-2 ">
+        <strong>X :</strong>
+        <input type="number" min="1" max="20" asp-for="X"/>
+        <strong>Y :</strong>
+        <input type="number" min="20" max="50" asp-for="Y"/>
+        <strong>Sum :</strong>
+        <input type="number" asp-for="userModel.Verification" />
+    </div>
+    <button type="submit" class="btn btn-primary mt-3">Send CV </button>
+</form>
+</div>
+<partial name="_ValidationScriptsPartial"></partial>
+
+@*<form class="mt-3" asp-page-handler="DownloadMyInformation">
+    <button type="submit" class="btn btn-primary mt-3">Download My Information" </button>
+</form>*@
+
+@{
+    if (!(Model.userModel == null))
+    {
+        <p>@Model.userModel.FirstName</p>
+        <p>@Model.userModel.LastName</p>
+        <p>@Model.userModel.Gender</p>
+        <p>@Model.userModel.Email</p>
+        <p>@Model.userModel.Skills</p>
+        <p>@Model.userModel.BirthDate</p>
+    }
+}
+
+
+
