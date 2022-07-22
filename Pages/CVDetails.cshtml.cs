@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebApplication1.Pages
 {
-    public class SumMulModel : PageModel
+    public class CVDetailsModel : PageModel
     {
         public void OnGet()
         {

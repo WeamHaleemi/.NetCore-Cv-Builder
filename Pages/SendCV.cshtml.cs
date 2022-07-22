@@ -49,7 +49,7 @@ namespace WebApplication1.Pages
             this.Initialize();
         }
 
-        public IActionResult OnPost()
+        public async Task<IActionResult> OnPost()
         {
             this.Initialize();
             if (!userModel.Email.Equals(userModel.ConfirmEmail))
@@ -65,9 +65,9 @@ namespace WebApplication1.Pages
             else
             {
                 User user1 = getUser(userModel);
-                _context.AddAsync(user1);
-                _context.SaveChangesAsync();
-                return Page();
+               await _context.AddAsync(user1);
+               await _context.SaveChangesAsync();
+                return Redirect("/CvSummary?Id="+user1.UserId);
             }
 
 
